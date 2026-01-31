@@ -14,17 +14,12 @@ def lastfm_request(payload):
 
 def get_weekly_album_chart():
     payload = {'method': 'user.getweeklyalbumchart'}
-
-    try:
-        data = lastfm_request(payload).json()['weeklyalbumchart']['album']
-
-        artist_and_album = []
-        for i in range(len(data)):
-            artist_and_album.append([data[i]['artist']['#text'],
-                                 data[i]['name']])
-        return artist_and_album
-    except Exception as e:
-        print(e)
+    data = lastfm_request(payload).json()['weeklyalbumchart']['album']
+    artist_and_album = []
+    for i in range(len(data)):
+        artist_and_album.append([data[i]['artist']['#text'],
+                                data[i]['name']])
+    return artist_and_album
 
 
 def get_album_covers(artist_and_album):
@@ -34,10 +29,10 @@ def get_album_covers(artist_and_album):
                    'artist': album[0],
                    'album': album[1]}
         request_response = lastfm_request(payload).json()
-        url = request_response['album']['image'][1]['#text']
+        url = request_response['album']['image'][2]['#text']
         link_to_album = request_response['album']['url']
         if (url != ''):
-            images.append([album[0], album[2], url, link_to_album])
+            images.append([album[0], album[1], url, link_to_album])
     return images
 
 
