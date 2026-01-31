@@ -32,7 +32,7 @@ def get_album_covers(artist_and_album):
         url = request_response['album']['image'][1]['#text']
         link_to_album = request_response['album']['url']
         if (url != ''):
-            images.append([album[0], album[1], url, link_to_album])
+            images.append([album[0], album[2], url, link_to_album])
     return images
 
 
