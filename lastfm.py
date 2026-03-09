@@ -29,6 +29,11 @@ def get_album_covers(artist_and_album):
                    'artist': album[0],
                    'album': album[1]}
         request_response = lastfm_request(payload).json()
+        if not request_response['album']:
+            print("album key missing. full request response:")
+            print(request_response)
+            return
+
         url = request_response['album']['image'][2]['#text']
         link_to_album = request_response['album']['url']
         if (url != ''):
